@@ -48,10 +48,10 @@ class testCommand extends Command
             if($response->serverError()){
                 $this->serverError($response, $url, $data);
             }
-            //the url has been reached but send an status not like 200 and try again
+            //the url has been reached but send an status not like 200 and try again one more time
             if($response->status() != 200){
                 Log::error('server error: unable to get the adequate response we got ' . $response->status());        
-                $this->requestPost($url,$data);
+                $response = $this->requestPost($url,$data);
             }
             //let save the response if we have it 
             Log::info('this is the response: ' . $response->json() );
